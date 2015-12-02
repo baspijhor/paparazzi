@@ -50,6 +50,7 @@
 #endif
 
 #include "firmwares/rotorcraft/navigation.h"
+#include "firmwares/rotorcraft/autopilot.h"
 
 #include "math/pprz_geodetic_int.h"
 #include "state.h"
@@ -185,6 +186,13 @@ void dl_parse_msg(void)
         );
       break;
 #endif
+    case DL_POSITION_TARGET_LOCAL_NED:
+      if (DL_POSITION_TARGET_LOCAL_NED_ac_id(dl_buffer) != AC_ID) { break; }
+      autopilot_set_guided_setpoints(DL_POSITION_TARGET_LOCAL_NED_x(dl_buffer),
+                                     DL_POSITION_TARGET_LOCAL_NED_y(dl_buffer),
+                                     DL_POSITION_TARGET_LOCAL_NED_z(dl_buffer),
+                                     DL_POSITION_TARGET_LOCAL_NED_heading(dl_buffer));
+      break;
     default:
       break;
   }

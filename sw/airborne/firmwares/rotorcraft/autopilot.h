@@ -52,6 +52,7 @@
 #define AP_MODE_FORWARD           16
 #define AP_MODE_MODULE            17
 #define AP_MODE_FLIP              18
+#define AP_MODE_GUIDED            19
 
 extern uint8_t autopilot_mode;
 extern uint8_t autopilot_mode_auto2;
@@ -181,5 +182,14 @@ static inline void autopilot_ClearSettings(float clear)
 #include "subsystems/datalink/transport.h"
 extern void send_autopilot_version(struct transport_tx *trans, struct link_device *dev);
 #endif
+
+/** Set position and heading setpoints in GUIDED mode.
+ * @param x North position (local NED frame) in meters.
+ * @param y East position (local NED frame) in meters.
+ * @param z Down position (local NED frame) in meters.
+ * @param heading Setpoint in radians.
+ * @return TRUE if setpoint was set (currently in AP_MODE_GUIDED)
+ */
+extern bool_t autopilot_set_guided_setpoints(float x, float y, float z, float heading);
 
 #endif /* AUTOPILOT_H */
