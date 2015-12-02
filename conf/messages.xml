@@ -2842,6 +2842,15 @@
     <field name="itow"   type="uint32" unit="ms"/>
   </message>
 
+  <message name="DL_POSITION_TARGET_LOCAL_NED" id="40">
+    <field name="ac_id" type="string"/>
+    <field name="flags" type="uint8">still unused</field>
+    <field name="x" type="float" unit="m">X position in NED frame (north)</field>
+    <field name="y" type="float" unit="m">Y position in NED frame (east)</field>
+    <field name="z" type="float" unit="m">Z position in NED frame (down, negative altitude)</field>
+    <field name="heading" type="float" unit="rad" alt_unit="deg">heading (yaw) setpoint</field>
+  </message>
+
   <message name="PLUMES" id="100">
     <field name="ids" type="string" format="csv"/>
     <field name="lats" type="string" format="csv"/>

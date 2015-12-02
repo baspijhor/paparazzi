@@ -834,6 +834,17 @@ let link_report = fun logging _sender vs ->
     log logging ac_id "LINK_REPORT" vs
   with _ -> ()
 
+(** Got a DL_POSITION_TARGET_LOCAL_NED and send POSITION_TARGET_LOCAL_NED *)
+let position_target = fun logging _sender vs ->
+  let ac_id = Pprz.string_assoc "ac_id" vs in
+  let vs = [ "ac_id", Pprz.String ac_id;
+             "flags", List.assoc "flags" vs;
+             "x", List.assoc "x" vs;
+             "y", List.assoc "y" vs;
+             "z", List.assoc "z" vs;
+             "heading", List.assoc "heading" vs; ] in
+  Dl_Pprz.message_send dl_id "POSITION_TARGET_LOCAL_NED" vs;
+  log logging ac_id "POSITION_TARGET_LOCAL_NED" vs
 
 (** Get the 'ground' uplink messages, log them and send 'datalink' messages *)
 let ground_to_uplink = fun logging ->
@@ -844,7 +855,8 @@ let ground_to_uplink = fun logging ->
   bind_log_and_send "GET_DL_SETTING" get_setting;
   bind_log_and_send "JUMP_TO_BLOCK" jump_block;
   bind_log_and_send "RAW_DATALINK" raw_datalink;
-  bind_log_and_send "LINK_REPORT" link_report
+  bind_log_and_send "LINK_REPORT" link_report;
+  bind_log_and_send "DL_POSITION_TARGET_LOCAL_NED" position_target
 
 
 (* main loop *)
