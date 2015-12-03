@@ -842,7 +842,7 @@ let position_target = fun logging _sender vs ->
              "x", List.assoc "x" vs;
              "y", List.assoc "y" vs;
              "z", List.assoc "z" vs;
-             "heading", List.assoc "heading" vs; ] in
+             "yaw", List.assoc "yaw" vs; ] in
   Dl_Pprz.message_send dl_id "POSITION_TARGET_LOCAL_NED" vs;
   log logging ac_id "POSITION_TARGET_LOCAL_NED" vs
 

@@ -190,6 +190,26 @@ extern void send_autopilot_version(struct transport_tx *trans, struct link_devic
  * @param heading Setpoint in radians.
  * @return TRUE if setpoint was set (currently in AP_MODE_GUIDED)
  */
-extern bool_t autopilot_set_guided_setpoints(float x, float y, float z, float heading);
+extern bool_t autopilot_guided_goto_ned(float x, float y, float z, float heading);
+
+/** Set position and heading setpoints wrt. current position in GUIDED mode.
+ * @param dx Offset relative to current north position (local NED frame) in meters.
+ * @param dy Offset relative to current east position (local NED frame) in meters.
+ * @param dz Offset relative to current down position (local NED frame) in meters.
+ * @param dyaw Offset relative to current heading setpoint in radians.
+ * @return TRUE if setpoint was set (currently in AP_MODE_GUIDED)
+ */
+extern bool_t autopilot_guided_goto_ned_relative(float dx, float dy, float dz, float dyaw);
+
+/** Set position and heading setpoints wrt. current position AND heading in GUIDED mode.
+ * @param dx relative position (body frame, forward) in meters.
+ * @param dy relative position (body frame, right) in meters.
+ * @param dz relative position (body frame, down) in meters.
+ * @param dyaw Offset relative to current heading setpoint in radians.
+ * @return TRUE if setpoint was set (currently in AP_MODE_GUIDED)
+ */
+extern bool_t autopilot_guided_goto_body_relative(float dx, float dy, float dz, float dyaw);
+
+
 
 #endif /* AUTOPILOT_H */
