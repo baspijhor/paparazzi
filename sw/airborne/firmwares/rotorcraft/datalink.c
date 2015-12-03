@@ -207,6 +207,7 @@ void dl_parse_msg(void)
         case 0x03:
           /* body NED offset position setpoints */
           autopilot_guided_goto_body_relative(x, y, z, yaw);
+          break;
         default:
           /* others not handled yet */
           break;
