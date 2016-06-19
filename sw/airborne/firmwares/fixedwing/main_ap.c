@@ -44,9 +44,6 @@
 #if USE_GPS
 #include "subsystems/gps.h"
 #endif
-#if USE_IMU
-#include "subsystems/imu.h"
-#endif
 #if USE_AHRS
 #include "subsystems/ahrs.h"
 #endif
@@ -186,10 +183,6 @@ void init_ap(void)
   stateInit();
 
   /************* Sensors initialization ***************/
-
-#if USE_IMU
-  imu_init();
-#endif
 
 #if USE_AHRS_ALIGNER
   ahrs_aligner_init();
@@ -614,10 +607,6 @@ void attitude_loop(void)
 /** Run at PERIODIC_FREQUENCY (60Hz if not defined) */
 void sensors_task(void)
 {
-#if USE_IMU
-  imu_periodic();
-#endif // USE_IMU
-
   //FIXME: this is just a kludge
 #if USE_AHRS && defined SITL && !USE_NPS
   update_ahrs_from_sim();
@@ -684,10 +673,6 @@ void event_task_ap(void)
   /* event functions for mcu peripherals: i2c, usb_serial.. */
   mcu_event();
 #endif /* SINGLE_MCU */
-
-#if USE_IMU
-  ImuEvent();
-#endif
 
 #if USE_BARO_BOARD
   BaroEvent();
